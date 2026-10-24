@@ -1,6 +1,6 @@
 # expert-meeting-minutes
 
-一个用于中文专家会议录音整理的本地 Agent Skill：支持 Codex、Claude Code、腾讯 WorkBuddy/CodeBuddy，以及能够读取 `AGENTS.md` 的其他 agent。先在本地完成语音转写、术语复核和覆盖审计，再生成包含“会议内容汇总”和编号 Q&A 的正式 DOCX 纪要。
+一个用于券商会议录音整理的本地 Agent Skill：支持 Codex、Claude Code、腾讯 WorkBuddy/CodeBuddy，以及能够读取 `AGENTS.md` 的其他 agent。先在本地完成语音转写、术语复核和覆盖审计，再生成包含“一、会议内容汇总”和“二、Q&A” 的正式 DOCX 会议纪要。主要语言为中文，可参杂英文。
 
 > 使用提示：发送录音时请同时告知公司/行业。
 
