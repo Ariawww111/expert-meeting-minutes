@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "safe_regex_rules": [
+    {
+      "id": "repeat-percentage",
+      "pattern": "六六成",
+      "replacement": "六成",
+      "reason": "重复数字或单位"
+    },
+    {
+      "id": "repeat-hundred-million",
+      "pattern": "三三亿",
+      "replacement": "三亿",
+      "reason": "重复数字"
+    },
+    {
+      "id": "repeat-five-hundred-million",
+      "pattern": "五亿五亿",
+      "replacement": "五亿",
+      "reason": "重复数量"
+    },
+    {
+      "id": "range-four-five-hundred-million",
+      "pattern": "四四五亿",
+      "replacement": "四至五亿",
+      "reason": "数量区间口误"
+    },
+    {
+      "id": "range-three-four-hundred-million",
+      "pattern": "三四亿",
+      "replacement": "三至四亿",
+      "reason": "数量区间口误"
+    },
+    {
+      "id": "range-seven-eight-ten-million",
+      "pattern": "七八千万",
+      "replacement": "七千至八千万元",
+      "reason": "金额区间口误"
+    },
+    {
+      "id": "range-five-six-ten-million",
+      "pattern": "五六千万",
+      "replacement": "五千至六千万元",
+      "reason": "金额区间口误"
+    },
+    {
+      "id": "ind-abbreviation",
+      "pattern": "(?<![A-Za-z])(?:INB|IMB)(?![A-Za-z])",
+      "replacement": "IND",
+      "context": "临床|申报|审批",
+      "reason": "标准监管阶段缩写"
+    },
+    {
+      "id": "pk-pd-format",
+      "pattern": "(?<![A-Za-z])(?:PKPD|PKP)(?![A-Za-z])",
+      "replacement": "PK/PD",
+      "context": "暴露|通路|药物|质量",
+      "reason": "标准药代药效缩写格式"
+    },
+    {
+      "id": "lpa-format",
+      "pattern": "(?<![A-Za-z])(?:LPA|LPC)(?![A-Za-z])",
+      "replacement": "Lp(a)",
+      "context": "靶点|项目|水平|降低|脂蛋白|基因",
+      "reason": "标准靶点写法"
+    },
+    {
+      "id": "mnc-format",
+      "pattern": "(?<![A-Za-z])MC(?![A-Za-z])",
+      "replacement": "MNC",
+      "context": "企业|海外|靶点",
+      "reason": "标准企业类型缩写"
+    },
+    {
+      "id": "glp1-format",
+      "pattern": "(?<![A-Za-z])GLPY(?![A-Za-z])",
+      "replacement": "GLP-1",
+      "context": "GLP|靶点|药物|态度",
+      "reason": "标准靶点缩写"
+    }
+  ],
+  "ambiguous_terms": [
+    {
+      "observed": "基械",
+      "candidates": [
+        "基线",
+        "基因",
+        "机械"
+      ],
+      "reason": "同音医学术语不能自动纠正，需要人工确认"
+    },
+    {
+      "observed": "踏兵",
+      "candidates": [
+        "他汀"
+      ],
+      "reason": "同音药学术语不能自动纠正，需要人工确认"
+    },
+    {
+      "observed": "CDA",
+      "candidates": [
+        "CDE",
+        "FDA",
+        "NMPA"
+      ],
+      "reason": "监管机构缩写存在多个候选，需要人工确认"
+    },
+    {
+      "observed": "海利派勤",
+      "candidates": [
+        "卡立哌嗪"
+      ],
+      "reason": "药品名称疑似同音误写，需要结合公告人工确认"
+    },
+    {
+      "observed": "小河尚",
+      "candidates": [
+        "小核酸"
+      ],
+      "reason": "技术路线名称疑似同音误写，需要人工确认"
+    },
+    {
+      "observed": "小磺酸",
+      "candidates": [
+        "小核酸"
+      ],
+      "reason": "技术路线名称疑似同音误写，需要人工确认"
+    }
+  ]
+}

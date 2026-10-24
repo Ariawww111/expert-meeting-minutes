@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "terms": [
+    {
+      "term": "标准术语",
+      "aliases": [
+        "常见转写别名"
+      ],
+      "category": "industry",
+      "source": "用户确认",
+      "confirmed_at": "2026-10-23T00:00:00+00:00"
+    }
+  ],
+  "person_names": []
+}

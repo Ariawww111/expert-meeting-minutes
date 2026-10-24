@@ -1,0 +1,4 @@
+interface:
+  display_name: "券商专家会议纪要"
+  short_description: "本地转写录音，严格依据原文生成汇总与编号 Q&A 的正式 DOCX 纪要"
+  default_prompt: "使用 $expert-meeting-minutes 处理我提供的会议录音，先完成本地转写和人工复核门禁，再生成正式 DOCX 纪要。发送录音时请同时告知公司/行业。"

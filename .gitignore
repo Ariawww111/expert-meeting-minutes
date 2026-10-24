@@ -1,0 +1,9 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+tests/smoke-output/
+tests/qa-output/
+*.mp3
+*.m4a
+*.wav
+*.mp4
