@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -385,6 +386,47 @@ class WorkflowTests(unittest.TestCase):
         )
         if issue is not None:
             self.assertNotIn("term", issue["kinds"])
+
+    def test_agent_entrypoints_reference_canonical_skill(self):
+        for name in ("AGENTS.md", "CLAUDE.md", "CODEBUDDY.md"):
+            text = (SKILL_ROOT / name).read_text(encoding="utf-8")
+            self.assertIn("SKILL.md", text)
+        launcher = (SCRIPTS / "run_mm.cmd").read_text(encoding="utf-8")
+        self.assertIn("run_mm.ps1", launcher)
+
+    @unittest.skipUnless(sys.platform == "win32", "Windows installer test")
+    def test_installer_copies_to_all_agent_directories(self):
+        with tempfile.TemporaryDirectory() as temp:
+            result = subprocess.run(
+                [
+                    "powershell.exe",
+                    "-NoProfile",
+                    "-ExecutionPolicy",
+                    "Bypass",
+                    "-File",
+                    str(SCRIPTS / "install_skill.ps1"),
+                    "-Target",
+                    "All",
+                    "-Mode",
+                    "Copy",
+                    "-DestinationRoot",
+                    temp,
+                ],
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            for relative in (
+                ".codex/skills/expert-meeting-minutes",
+                ".claude/skills/expert-meeting-minutes",
+                ".codebuddy/skills/expert-meeting-minutes",
+            ):
+                installed = Path(temp) / relative
+                self.assertTrue((installed / "SKILL.md").exists())
+                self.assertTrue((installed / "scripts" / "mm.py").exists())
+                self.assertFalse((installed / ".git").exists())
 
     def test_review_ids_are_stable_across_transcript_revisions(self):
         segment = {

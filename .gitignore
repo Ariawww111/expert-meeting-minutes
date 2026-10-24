@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 tests/smoke-output/
 tests/qa-output/
+tests/installer-output/
 *.mp3
 *.m4a
 *.wav

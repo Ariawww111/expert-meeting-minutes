@@ -168,6 +168,7 @@ description: "把券商专家会议、公司高管采访等中文录音整理为
 - 写作口径、禁止项和 Q&A 示例：[references/style-guide.md](references/style-guide.md)
 - JSON 字段和覆盖规则：[references/data-contracts.md](references/data-contracts.md)
 - 自动规范化与人工复核边界：[references/normalization-rules.md](references/normalization-rules.md)
+- Codex、Claude Code、WorkBuddy 和其他 agent 的安装与质量边界：[references/agent-compatibility.md](references/agent-compatibility.md)
 - 免费 FunASR 安装、模型许可和排错：[references/setup.md](references/setup.md)
 - 可编辑术语表模板：[assets/glossary-template.json](assets/glossary-template.json)
 

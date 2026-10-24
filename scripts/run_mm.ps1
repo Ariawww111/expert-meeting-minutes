@@ -13,7 +13,7 @@ $Python = Join-Path $DataRoot "venv312\Scripts\python.exe"
 $Mm = Join-Path $PSScriptRoot "mm.py"
 
 if (-not (Test-Path $Python)) {
-    throw "未找到本地环境：$Python。请先运行 $PSScriptRoot\setup_env.ps1。"
+    throw "Local environment not found: $Python. Run $PSScriptRoot\setup_env.ps1 first."
 }
 
 $env:EXPERT_MEETING_DATA_DIR = $DataRoot

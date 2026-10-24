@@ -1,6 +1,6 @@
 # expert-meeting-minutes
 
-一个用于中文专家会议录音整理的 Codex skill：先在本地完成语音转写、术语复核和覆盖审计，再生成包含“会议内容汇总”和编号 Q&A 的正式 DOCX 纪要。
+一个用于中文专家会议录音整理的本地 Agent Skill：支持 Codex、Claude Code、腾讯 WorkBuddy/CodeBuddy，以及能够读取 `AGENTS.md` 的其他 agent。先在本地完成语音转写、术语复核和覆盖审计，再生成包含“会议内容汇总”和编号 Q&A 的正式 DOCX 纪要。
 
 > 使用提示：发送录音时请同时告知公司/行业。
 
@@ -20,26 +20,49 @@
 - 可用的本地 D 盘数据目录，默认 `D:\CodexData\expert-meeting-minutes`
 - 首次安装会下载免费 FunASR 模型，需要网络连接
 
+## Agent 兼容性
+
+| Agent | Skill 目录 | 入口 |
+| --- | --- | --- |
+| Codex | `%USERPROFILE%\.codex\skills\expert-meeting-minutes` | `SKILL.md` + `agents/openai.yaml` |
+| Claude Code | `%USERPROFILE%\.claude\skills\expert-meeting-minutes` | `SKILL.md` + `CLAUDE.md` |
+| WorkBuddy/CodeBuddy | `%USERPROFILE%\.codebuddy\skills\expert-meeting-minutes` | `SKILL.md` + `CODEBUDDY.md` |
+| 其他 agent | 仓库或项目目录 | `AGENTS.md` → `SKILL.md` |
+
+三端共用同一套转写、复核、校验和 DOCX 渲染脚本。结构与事实门禁一致，汇总和 Q&A 的表达会随各 agent 使用的模型不同而略有差异。详见 [Agent 兼容性说明](references/agent-compatibility.md)。
+
 ## 安装
 
-将本仓库放到 Codex skills 目录：
+先克隆仓库：
 
 ```powershell
-git clone https://github.com/Ariawww111/expert-meeting-minutes.git "$HOME\.codex\skills\expert-meeting-minutes"
+git clone https://github.com/Ariawww111/expert-meeting-minutes.git "$HOME\expert-meeting-minutes"
+```
+
+安装到所有支持的 agent：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME\expert-meeting-minutes\scripts\install_skill.ps1" -Target All
+```
+
+也可以只安装一个平台：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME\expert-meeting-minutes\scripts\install_skill.ps1" -Target Claude
 ```
 
 然后安装本地依赖：
 
 ```powershell
 Set-ExecutionPolicy -Scope Process Bypass
-& "$HOME\.codex\skills\expert-meeting-minutes\scripts\setup_env.ps1"
+& "$HOME\expert-meeting-minutes\scripts\setup_env.ps1"
 ```
 
 安装脚本会创建隔离的 Python 环境、安装 CPU 版 PyTorch 与 FunASR，并把模型缓存写入 `D:\CodexData\expert-meeting-minutes`。
 
 ## 使用
 
-在 Codex 中调用：
+按所用 agent 调用已安装的 skill，并附上公司和行业：
 
 ```text
 使用 $expert-meeting-minutes 处理我提供的会议录音。公司/行业是：____。
@@ -50,7 +73,13 @@ Set-ExecutionPolicy -Scope Process Bypass
 首次使用前可检查环境：
 
 ```powershell
-& "$HOME\.codex\skills\expert-meeting-minutes\scripts\run_mm.ps1" setup-check --json
+& "$HOME\expert-meeting-minutes\scripts\run_mm.ps1" setup-check --json
+```
+
+无法直接执行 PowerShell 的 agent 可以使用：
+
+```text
+scripts\run_mm.cmd setup-check --json
 ```
 
 ## 工作流
@@ -63,7 +92,7 @@ Set-ExecutionPolicy -Scope Process Bypass
 6. 运行数字、片段覆盖、人名和复核门禁。
 7. 生成 DOCX 并逐页检查排版。
 
-详细说明见 [SKILL.md](SKILL.md)，写作口径见 [references/style-guide.md](references/style-guide.md)。
+详细说明见 [SKILL.md](SKILL.md)，写作口径见 [references/style-guide.md](references/style-guide.md)，安装位置与质量边界见 [references/agent-compatibility.md](references/agent-compatibility.md)。
 
 ## 隐私
 
